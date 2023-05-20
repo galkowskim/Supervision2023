@@ -38,22 +38,6 @@ def get_urls(n=10, page_limit=25):
     return urls
 
 
-def get_df(n=10):
-    urls = [URL + x for x in get_urls(n) if 'http' not in x]
-    df = pd.DataFrame(
-        columns=['title', 'desc', 'user_register', 'offer_posted', 'url'])
-    for url in urls:
-        try:
-            olx = OlxScraper(url)
-        except:
-            continue
-        df = pd.concat([df, pd.DataFrame({'title': [olx.title], 'desc': [olx.desc],
-                                          'user_register': [olx.user_register],
-                                          'offer_posted': [olx.offer_posted],
-                                          'url': [olx.url]})], ignore_index=True)
-    return df
-
-
 class OlxScraper(Scraper):
     def __init__(self, url) -> None:
         self.TODAY = '20 maja 2023'
@@ -70,6 +54,21 @@ class OlxScraper(Scraper):
         self.title = main_div.find_all('h1', class_='css-1soizd2')[0].text
         self.user_register = soup.find_all(
             'div', class_='css-16h6te1')[0].text[13:]
+
+    def get_df(n=10):
+        urls = [URL + x for x in get_urls(n) if 'http' not in x]
+        df = pd.DataFrame(
+            columns=['title', 'desc', 'user_register', 'offer_posted', 'url'])
+        for url in urls:
+            try:
+                olx = OlxScraper(url)
+            except:
+                continue
+            df = pd.concat([df, pd.DataFrame({'title': [olx.title], 'desc': [olx.desc],
+                                              'user_register': [olx.user_register],
+                                              'offer_posted': [olx.offer_posted],
+                                              'url': [olx.url]})], ignore_index=True)
+        return df
 
     def print_prop(self) -> str:
         print(f'tytul = {self.title}', end='\n\n')

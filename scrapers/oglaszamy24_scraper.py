@@ -40,21 +40,6 @@ def get_urls(n=10, page_limit=25):
     return urls
 
 
-def get_df(n=10):
-    urls = get_urls(n)
-    df = pd.DataFrame(
-        columns=['title', 'desc', 'offer_posted', 'url'])
-    for url in urls:
-        try:
-            olx = Oglaszamy24Scraper(url)
-        except:
-            continue
-        df = pd.concat([df, pd.DataFrame({'title': [olx.title], 'desc': [olx.desc],
-                                          'offer_posted': [olx.offer_posted],
-                                          'url': [olx.url]})], ignore_index=True)
-    return df
-
-
 class Oglaszamy24Scraper(Scraper):
 
     def __init__(self, url) -> None:
@@ -71,6 +56,20 @@ class Oglaszamy24Scraper(Scraper):
             0].find_all('span', class_='bg_desc')
         temp = [x.text for x in temp if x.text.startswith('Dodano:')]
         self.offer_posted = temp[0][8:] if temp else ''
+
+    def get_df(n=10):
+        urls = get_urls(n)
+        df = pd.DataFrame(
+            columns=['title', 'desc', 'offer_posted', 'url'])
+        for url in urls:
+            try:
+                olx = Oglaszamy24Scraper(url)
+            except:
+                continue
+            df = pd.concat([df, pd.DataFrame({'title': [olx.title], 'desc': [olx.desc],
+                                              'offer_posted': [olx.offer_posted],
+                                              'url': [olx.url]})], ignore_index=True)
+        return df
 
     def print_prop(self) -> str:
         print(f'tytul = {self.title}', end='\n\n')
