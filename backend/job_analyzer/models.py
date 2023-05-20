@@ -1,22 +1,21 @@
-from base.models import CustomUser
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
-
 
 class JobAdvertisement(models.Model):
-    user = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, null=True, blank=True)
-    title = models.CharField(max_length=200, null=False)
+    title = models.CharField(max_length=200, null=True, blank=True)
     content = models.TextField(null=True, blank=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateTimeField(null=True, blank=True)
+    source_page = models.TextField(null=True, blank=True)
+    date_of_account_creation = models.DateTimeField(null=True, blank=True)
+    fake_probability = models.FloatField(null=True, blank=True)
 
     class ProrityLevels(models.TextChoices):
-        LOW = "C", _('Low')
-        MEDIUM = "B", _("Medium")
-        HIGH = 'A', _("High")
+        VERY_LOW = "1", _('Very Low')
+        LOW = "2", _("Low")
+        HIGH_MEDIUM = "3", _("Medium")
+        HIGH = '4', _("High")
+        VERY_HIGH = '5', _("Very High")
 
     priority_level = models.CharField(
         max_length=1,
@@ -25,7 +24,7 @@ class JobAdvertisement(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return self.date_added.str() + " " + self.source_page
 
     class Meta:
         order_with_respect_to = 'priority_level'
