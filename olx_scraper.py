@@ -1,10 +1,15 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
+from scraper import Scraper
 
 URL = 'https://olx.pl'
 
 def get_urls(n=10, page_limit=25):
+    '''
+    n - number of offers to scrape
+    page_limit - number of pages to scrape
+    '''
     urls = []
     no = 0
     i = 1
@@ -42,7 +47,7 @@ def get_df(n=10):
                                           'url': [olx.url]})], ignore_index=True)
     return df
 
-class OlxScraper:
+class OlxScraper(Scraper):
     def __init__(self, url) -> None:
         self.TODAY = '20 maja 2023'
         self.url = url
