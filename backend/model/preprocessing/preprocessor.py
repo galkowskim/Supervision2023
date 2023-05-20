@@ -11,11 +11,14 @@ class Preprocessor:
             content = [line.strip() for line in content]
             self.stop_words = set(content)
 
-    def preprocess_data(self, text_col: str):
+    def preprocess_data(self, text_col: str, account_creation_date_col: str, post_upload_date_col: str):
         """ 
         Performs preprocessing tasks on text data
         """
-        self.remove_special_characters(text_col, chars_to_delete='[^A-Za-z0-9!%]+')
+        self.format_col_type(text_col, 'str')
+        self.format_col_type(account_creation_date_col, 'datetime64[ns]')
+        self.format_col_type(post_upload_date_col, 'datetime64[ns]')
+        self.remove_special_characters(text_col, chars_to_delete='[^A-Za-zążźółćśęń!]+')
         self.remove_stopwords(text_col)
     
     def postprocess_data(self, text_col: str):
@@ -23,7 +26,7 @@ class Preprocessor:
         Performs postprocessing tasks on text data. These are the transformations, which would corrupt
         feature engineering process
         """
-        self.remove_special_characters(text_col, chars_to_delete='[^A-Za-z0-9]+')
+        self.remove_special_characters(text_col, chars_to_delete='[^A-Za-zążźółćśęń]+')
         self.convert_text_to_lowercase(text_col)
         self.lemmatize(text_col)
 
@@ -31,7 +34,8 @@ class Preprocessor:
         """
         Removes special chcarcters from text column
         """
-        self.df[text_col] = self.df[text_col].apply(lambda s: re.sub(chars_to_delete, '', s))
+        self.df[text_col] = self.df[text_col].str.replace('%', 'procent')
+        self.df[text_col] = self.df[text_col].apply(lambda s: re.sub(chars_to_delete, ' ', s))
 
     def _remove_stopwords_in_text(self, text: str):
             word_tokens = word_tokenize(text)
@@ -61,5 +65,12 @@ class Preprocessor:
         """
 
         self.df[text_col] = self.df[text_col].apply(lambda s: s.lower())
+    
+    def format_col_type(self, col: str, target_type: str):
+        """
+        Converts column to the desired type
+        """
+        self.df[col] = self.df[col].astype(target_type)
+        
 
 
