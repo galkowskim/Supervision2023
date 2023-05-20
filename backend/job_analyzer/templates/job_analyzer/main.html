@@ -41,13 +41,13 @@
 <div id="jobs_div">
     {% for job in job_advertisements %}
     <div class="row_div">
-        <div class="col_div"><a href="{% url 'job_analyzer:advertisement' job.id %}">{{ job.title }}</a></div>
-        <div class="col_div">{{ job.content }}</div>
-        <div class="col_div">{{ job.date_added }}</div>
-        <div class="col_div"><a href="{{ job.source_page }}">{{job.source_page}}</a></div>
-        <div class="col_div">{{ job.date_of_account_creation }}</div>
-        <div class="col_div">{{ job.fake_probability }}</div>
-        <div class="col_div">{{ job.get_priority_level_display }}</div>
+        <div class="col_div"><p><a href="{% url 'job_analyzer:advertisement' job.id %}">{{ job.title }}</a></p></div>
+        <div class="col_div" id="content"><p>{{ job.content }}</p></div>
+        <div class="col_div"><p>{{ job.date_added }}</p></div>
+        <div class="col_div"><p><a href="{{ job.source_page }}">{{job.source_page}}</a></p></div>
+        <div class="col_div"><p>{{ job.date_of_account_creation }}</p></div>
+        <div class="col_div"><p>{{ job.fake_probability }}</p></div>
+        <div class="col_div"><p>{{ job.get_priority_level_display }}</p></div>
 
     </div>
 
