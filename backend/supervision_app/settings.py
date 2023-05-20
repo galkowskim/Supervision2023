@@ -120,6 +120,21 @@ USE_TZ = True
 
 LOGIN_URL = 'login/'
 
+# Celery configurations
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+# Specify the location of the tasks module
+CELERY_IMPORTS = ('supervision_app.tasks',)
+
+# Configure Celery beat schedule
+CELERY_BEAT_SCHEDULE = {
+    'scrape-data-every-5-minutes': {
+        'task': 'supervision_app.tasks.scrape_data',
+        'schedule': 600,  # 10 minutes (in seconds)
+    },
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
