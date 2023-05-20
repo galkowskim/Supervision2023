@@ -1,5 +1,6 @@
 from .celery import app
 from job_analyzer.models import JobAdvertisement
+from model.pipeline.pipeline import Pipeline
 from celery import shared_task
 import pandas as pd
 from datetime import datetime
@@ -9,23 +10,35 @@ sys.path.append("..")
 from scrapers import oglaszamy24_scraper, olx_scraper, sprzedajemy_scraper
 
 
-MODEL_PATH = '/home/galkowskim/Desktop/Supervision2023/model.sav'
+MODEL_PATH = '/home/galkowskim/Desktop/Supervision2023/model_baseline.pkl'
 
 
 @shared_task
 def scrape_data():
 
-    # model = pickle.load(MODEL_PATH)
+    with open(MODEL_PATH, 'rb') as f:
+        model = pickle.load(f)
+    pipeline = Pipeline()
 
     df_olx, df_oglaszamy24, df_sprzedajemy = scrape_data_from_source(
-        n=2)  # Your scraping function
+        n=2)
 
     df = pd.concat([df_olx, df_oglaszamy24, df_sprzedajemy], ignore_index=True)
 
-    # df['fake_probability'] = model.predict(...)
-    df['fake_probability'] = 0.5
+    X = df[['desc', 'user_register', 'offer_posted']]
+    X.columns = ['desc', 'user_registration_date', 'post_creation']
+    x_transformed = pipeline.run(X, '/home/galkowskim/Desktop/Supervision2023/backend/model/data/stop_words_polish.txt')
+    df['fake_probability'] = model.predict(x_transformed)
 
-    df['date_added'] = datetime.now()
+    # write lambda function which will assign priority level based on fake_probability
+    # 0.9 - 1 - very high
+    # 0.75 - 0.9 - high
+    # 0.5 - 0.75 - medium
+    # 0.25 - 0.5 - low
+    # 0.1 - 0.25 - very low
+    df['priority_level'] = df['fake_probability'].apply(lambda x: 'Very High' if x >= 0.9 else 'High' if x >= 0.75 else 'Medium' if x >= 0.5 else 'Low' if x >= 0.25 else 'Very Low')
+
+    df['date_added'] = df['offer_posted']
 
 
     for index, row in df.iterrows():

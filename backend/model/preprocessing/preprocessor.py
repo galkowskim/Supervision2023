@@ -17,7 +17,7 @@ class Preprocessor:
         """
         Performs preprocessing tasks on text data
         """
-        self.df = self.df[[text_col, account_creation_date_col, post_upload_date_col, target_col]]
+        self.df = self.df[[text_col, account_creation_date_col, post_upload_date_col]]
         self.format_col_type(text_col, 'str')
         self.format_col_type(account_creation_date_col, 'datetime64[ns]')
         self.format_col_type(post_upload_date_col, 'datetime64[ns]')

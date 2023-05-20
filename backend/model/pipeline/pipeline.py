@@ -1,9 +1,9 @@
-from feature_engineering.feature_extractor import FeatureExtractor
-import importlib
-import pandas as pd
-from preprocessing.preprocessor import Preprocessor
 import sys
 sys.path.append('..')
+from model.feature_engineering.feature_extractor import FeatureExtractor
+import importlib
+import pandas as pd
+from model.preprocessing.preprocessor import Preprocessor
 
 fe_dict = {'sprzedac': ['sprzedać'],
            'kupic': ['kupić'],
