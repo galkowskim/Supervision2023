@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class JobAdvertisement(models.Model):
+    title = models.CharField(max_length=200, null=True, blank=True)
     content = models.TextField(null=True, blank=True)
     date_added = models.DateTimeField(null=True, blank=True)
     source_page = models.TextField(null=True, blank=True)
