@@ -13,11 +13,11 @@ class Preprocessor:
             content = [line.strip() for line in content]
             self.stop_words = set(content)
 
-    def preprocess_data(self, text_col: str, account_creation_date_col: str, post_upload_date_col: str):
+    def preprocess_data(self, text_col: str, account_creation_date_col: str, post_upload_date_col: str, target_col: str):
         """
         Performs preprocessing tasks on text data
         """
-        self.df = self.df[[text_col, account_creation_date_col, post_upload_date_col]]
+        self.df = self.df[[text_col, account_creation_date_col, post_upload_date_col, target_col]]
         self.format_col_type(text_col, 'str')
         self.format_col_type(account_creation_date_col, 'datetime64[ns]')
         self.format_col_type(post_upload_date_col, 'datetime64[ns]')

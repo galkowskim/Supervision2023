@@ -61,7 +61,7 @@ class Pipeline:
     def run(df, stopwords_file_path: str):
         preprocessor = Preprocessor(df, stopwords_file_path) #'../../../data/stop_words_polish.txt'
         preprocessor.preprocess_data(
-            'desc', 'user_registration_date', 'post_creation')
+            'desc', 'user_registration_date', 'post_creation', 'fake')
         df_preprocessed = preprocessor.df
 
         fe = FeatureExtractor(df_preprocessed)
