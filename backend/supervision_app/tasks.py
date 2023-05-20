@@ -6,9 +6,6 @@ import pickle
 from ...scrapers import olx_scraper, sprzedajemy_scraper, oglaszamy24_scraper
 import pandas as pd
 
-# TODO
-# from .scrapers import scrape_data_from_source # cos w tym stylu
-
 MODEL_PATH = 'model.sav'
 
 @shared_task
