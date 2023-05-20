@@ -1,9 +1,12 @@
 {% extends 'base/base.html' %} {% load static %} {% block content %}
-<link rel="stylesheet" href="{% static 'base/main.css' %}" />
-<div class="confirm">
-  <h1>Welcome to advertisements analyzer page</h1>
-  <a href="{% url 'base:login' %}" class="btn btn-primary"
-    >Go to the login page</a
-  >
+<link rel="stylesheet" href="{% static 'base/main.css' %}"/>
+<div class="wrapper">
+    <div id="main_text">
+        <h1>Welcome to advertisements analyzer page</h1>
+        <p>Fajna aplikacja elegancka. Wykrywa podejrzane rzeczy. Oferuje dashboard i inne.</p>
+        <div id="main_a">
+            <a href="{% url 'base:login' %}" class="btn btn-primary">Go to the login page</a>
+        </div>
+    </div>
 </div>
 {% endblock content %}

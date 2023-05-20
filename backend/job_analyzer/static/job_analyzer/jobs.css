@@ -1,0 +1,59 @@
+div{
+    width: 100%;
+    text-align: center;
+}
+
+#logo{
+    text-align: left;
+}
+
+.wrapper{
+    width: 100%;
+}
+
+h1 {
+    width: 90%;
+    margin-top: 3%;
+    padding: 3%;
+    background-color: rgb(2, 3, 129);
+    text-align: center;
+    border-radius: 1.1em;
+    font-size: 6vh;
+    color: white;
+    overflow-wrap: break-word;
+
+}
+
+#jobs_div{
+
+    overflow-y: scroll;
+}
+
+
+
+
+.row_div {
+    width: 100%;
+    position: relative;
+    border-bottom: black solid 1px;
+    padding: 10px 0;
+    height: 140px;
+    display: table;
+    max-width: 100%;
+}
+
+.row_div:last-child {
+    border-bottom: none;
+}
+
+.col_div {
+    display: table-cell;
+    height: 100%;
+    width: 25%;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 2vw;
+    max-width: 15vw;
+    padding: 1%;
+    text-overflow: ellipsis;
+}
