@@ -22,26 +22,6 @@ class FeatureExtractor:
     
     def count_upper_words(self, text_col:str):
 
-        self.df[upper_count] = self.df[text_col].apply(lambda c: self.count_upper_words_in_string(c))
+        self.df["upper_count"] = self.df[text_col].apply(lambda c: self.count_upper_words_in_string(c))
 
 
-
-
-    
-    def word_is_in_text(self, word, text):
-        if word in text:
-            return True
-        else:
-            return False
-        
-    def count_word(self, word, text):
-        count =  text.count(word)
-        return count
-    
-    
-
-        
-
-
-
-        
