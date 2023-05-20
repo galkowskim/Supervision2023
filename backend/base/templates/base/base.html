@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FakeJob Hunter</title>
+    <link rel="icon" href="{% static 'base/helper.png' %}" />
+    <link rel="stylesheet" href="{% static 'base/base_style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="logo"><img src="https://supervisionhack.pl/wp-content/themes/supervision/img/logo.png" alt="logo"></div>
+    <div class="wrapper">{% block content %} {% endblock content %}</div>
+  </body>
+</html>
