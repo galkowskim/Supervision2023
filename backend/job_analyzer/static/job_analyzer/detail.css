@@ -27,7 +27,6 @@ h1 {
 .row_div {
     width: 100%;
     position: relative;
-    border-bottom: black solid 1px;
     height: 100%;
     display: table;
     max-width: 100%;
@@ -51,11 +50,11 @@ h1 {
 }
 
 img{
-    width: 100%;
+    max-width: 100%;
 }
 
 #wordcloud{
-    height: 50vh;
+    max-height:100vh;
 }
 
 a{
@@ -79,4 +78,17 @@ p{
     padding: 0;
     color: white;
     font-size: 2.5vh;
+}
+
+#content{
+    max-height: 50vh;
+    text-overflow: ellipsis;
+    white-space: break-spaces;
+    overflow: hidden;
+}
+
+#content:hover{
+    overflow: hidden;
+    text-overflow: clip;
+    max-height: 100%;
 }

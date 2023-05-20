@@ -58,7 +58,6 @@ h1 {
     width: 100%;
     position: relative;
     border-bottom: black solid 1px;
-    height: 10vh;
     display: table;
     max-width: 100%;
 }
@@ -69,7 +68,6 @@ h1 {
 
 .col_div {
     display: table-cell;
-    height: 100%;
     width: 10%;
     vertical-align: middle;
     text-align: center;
@@ -79,6 +77,27 @@ h1 {
     white-space: break-spaces;
     overflow: hidden;
     padding: 1%;
+    max-height: 10vh;
+}
+
+.col_div p{
+    overflow: hidden;
+    text-overflow: clip;
+    max-height: 10vh;
+
+}
+
+.col_div p:hover{
+    overflow: hidden;
+    text-overflow: clip;
+    max-height: 100%;
+
+}
+
+#header_div .col_div{
+    white-space: break-spaces;
+    overflow: hidden;
+
 }
 
 #header_div .col_div{
