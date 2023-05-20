@@ -16,4 +16,9 @@
         <img src="https://images.genius.com/55dbe2169199f3198c1957b324c41789.900x900x1.jpg">
     </div>
 </div>
+<div>
+    {% if wordcloud is not None %}
+        <img id="wordcloud" src="{{ wordcloud }}">
+    {% endif %}
+</div>
 {% endblock content %}

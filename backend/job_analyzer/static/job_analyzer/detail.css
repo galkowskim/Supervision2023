@@ -54,6 +54,10 @@ img{
     width: 100%;
 }
 
+#wordcloud{
+    height: 50vh;
+}
+
 a{
     color: rgba(255, 105, 0, 1);
     font-size: 3vh;

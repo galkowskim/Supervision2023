@@ -4,8 +4,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-
+from django.shortcuts import render
+from django.http import HttpResponse
 from .models import JobAdvertisement
+
+from typing import Any, Optional
+import pandas as pd
+from django.http.request import HttpRequest
+from django.http.response import HttpResponse
+from django.shortcuts import render
+from django.views import View
+from .utils import show_wordcloud
 
 
 class MainPageJobAdvertisementList(LoginRequiredMixin, ListView):
@@ -39,11 +48,10 @@ class MainPageJobAdvertisementList(LoginRequiredMixin, ListView):
         return context
 
 
-class JobAdvertisementDetail(LoginRequiredMixin, DetailView):
-    model = JobAdvertisement
-    context_object_name = 'job'
-    template_name = 'job_analyzer/advertisement.html'
-
-    def get_object(self):
-        obj = super(JobAdvertisementDetail, self).get_object()
-        return obj
+def details(request, pk):
+    job = JobAdvertisement.objects.get(id=pk)
+    data = getattr(job, 'content')
+    wordcloud = show_wordcloud(data)
+    context = {'job': job,
+               'wordcloud': wordcloud}
+    return render(request, 'job_analyzer/advertisement.html', context)
