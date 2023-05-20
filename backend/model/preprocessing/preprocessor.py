@@ -29,6 +29,7 @@ class Preprocessor:
         self.remove_special_characters(text_col, chars_to_delete='[^A-Za-zążźółćśęń]+')
         self.convert_text_to_lowercase(text_col)
         self.lemmatize(text_col)
+        self.remove_stopwords(text_col)
 
     def remove_special_characters(self, text_col: str, chars_to_delete: str):
         """
