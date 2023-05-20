@@ -50,16 +50,6 @@
         <div class="col_div"><p>{{ job.fake_probability }}</p></div>
         <div class="col_div"><p>{{ job.get_priority_level_display }}</p></div>
     </div>
-    <div class="col_div">{{ job.content }}</div>
-    <div class="col_div">{{ job.date_added }}</div>
-    <div class="col_div">
-      <a href="{{ job.source_page }}">{{job.source_page}}</a>
-    </div>
-    <div class="col_div">{{ job.date_of_account_creation }}</div>
-    <div class="col_div">{{ job.fake_probability }}</div>
-    <div class="col_div">{{ job.get_priority_level_display }}</div>
-  </div>
-
   {% empty %}
   <div class="row_div">
     <div class="col_div">Empty</div>
