@@ -46,7 +46,4 @@ class JobAdvertisementDetail(LoginRequiredMixin, DetailView):
 
     def get_object(self):
         obj = super(JobAdvertisementDetail, self).get_object()
-        print('\ntutaj\n')
-        print(obj)
-        print()
         return obj
