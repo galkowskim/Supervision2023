@@ -1,42 +1,43 @@
 {% extends 'job_analyzer/base.html' %} {% load static %} {% block content %}
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
-        rel="stylesheet"/>
-<link rel="stylesheet" href="{% static 'job_analyzer/jobs.css' %}">
+  href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="{% static 'job_analyzer/jobs.css' %}" />
 
 <div id="title_div"><h1>Job Advertisements</h1></div>
 <div id="filters">
-    <form method="GET" action="">
-        <label for="date_added_from">Filter by Date Added:</label>
-        <input type="date" id="date_added_from" name="date_added_from"/>
-        <span>to</span>
-        <input type="date" id="date_added_to" name="date_added_to"/>
-        <br/>
-        <label for="priority_level">Filter by Priority Level:</label>
-        <select id="priority_level" name="priority_level">
-            <option value="">All</option>
-            <option value="1">Very Low</option>
-            <option value="2">Low</option>
-            <option value="3">Medium</option>
-            <option value="4">High</option>
-            <option value="5">Very High</option>
-        </select>
-        <br/>
-        <button type="submit">Apply Filters</button>
-    </form>
+  <form method="GET" action="">
+    <label for="date_added_from">Filter by Date Added:</label>
+    <input type="date" id="date_added_from" name="date_added_from" />
+    <span>to</span>
+    <input type="date" id="date_added_to" name="date_added_to" />
+    <br />
+    <label for="priority_level">Filter by Priority Level:</label>
+    <select id="priority_level" name="priority_level">
+      <option value="">All</option>
+      <option value="1">Very Low</option>
+      <option value="2">Low</option>
+      <option value="3">Medium</option>
+      <option value="4">High</option>
+      <option value="5">Very High</option>
+    </select>
+    <br />
+    <button type="submit">Apply Filters</button>
+  </form>
 </div>
 <div id="header_div">
-    <div class="row_div">
-        <div class="col_div">Title</div>
-        <div class="col_div">Content</div>
-        <div class="col_div">Date Added</div>
-        <div class="col_div">Source Page</div>
-        <div class="col_div">Date of Account Creation</div>
-        <div class="col_div">Fake Probability</div>
-        <div class="col_div">Priority Level</div>
-    </div>
+  <div class="row_div">
+    <div class="col_div">Title</div>
+    <div class="col_div">Content</div>
+    <div class="col_div">Date Added</div>
+    <div class="col_div">Source Page</div>
+    <div class="col_div">Date of Account Creation</div>
+    <div class="col_div">Fake Probability</div>
+    <div class="col_div">Priority Level</div>
+  </div>
 </div>
 <div id="jobs_div">
     {% for job in job_advertisements %}
@@ -48,13 +49,21 @@
         <div class="col_div"><p>{{ job.date_of_account_creation }}</p></div>
         <div class="col_div"><p>{{ job.fake_probability }}</p></div>
         <div class="col_div"><p>{{ job.get_priority_level_display }}</p></div>
-
     </div>
-
-    {% empty %}
-    <div class="row_div">
-        <div class="col_div">Empty</div>
+    <div class="col_div">{{ job.content }}</div>
+    <div class="col_div">{{ job.date_added }}</div>
+    <div class="col_div">
+      <a href="{{ job.source_page }}">{{job.source_page}}</a>
     </div>
-    {% endfor %}
+    <div class="col_div">{{ job.date_of_account_creation }}</div>
+    <div class="col_div">{{ job.fake_probability }}</div>
+    <div class="col_div">{{ job.get_priority_level_display }}</div>
+  </div>
+
+  {% empty %}
+  <div class="row_div">
+    <div class="col_div">Empty</div>
+  </div>
+  {% endfor %}
 </div>
 {% endblock content %}

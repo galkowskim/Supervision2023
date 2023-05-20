@@ -14,6 +14,7 @@ stopwords = set(STOPWORDS)
 
 def show_wordcloud(data):
     try:
+
         wordcloud = WordCloud(background_color='blanchedalmond', max_words=200, max_font_size=40, random_state=0,
                               stopwords=stopwords, width=800, height=400)
 
@@ -25,6 +26,7 @@ def show_wordcloud(data):
 
         image = io.BytesIO()
         plt.savefig(image, format="jpg")
+
         image.seek(0)
         string = base64.b64encode(image.read())
         image_64 = "data:image/png;base64," + urllib.parse.quote_plus(string)

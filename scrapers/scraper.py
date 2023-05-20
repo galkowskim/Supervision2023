@@ -6,6 +6,7 @@ class Scraper(ABC):
     def _run(self):
         pass
 
+    @staticmethod
     @abstractmethod
     def get_df(self):
         pass

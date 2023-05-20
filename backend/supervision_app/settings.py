@@ -129,7 +129,7 @@ CELERY_IMPORTS = ('supervision_app.tasks',)
 
 # Configure Celery beat schedule
 CELERY_BEAT_SCHEDULE = {
-    'scrape-data-every-5-minutes': {
+    'scrape-data-every-10-minutes': {
         'task': 'supervision_app.tasks.scrape_data',
         'schedule': 600,  # 10 minutes (in seconds)
     },
