@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
-from scraper import Scraper
+from scrapers.scraper import Scraper
 
 URL = 'https://olx.pl'
 
