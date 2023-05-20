@@ -5,47 +5,35 @@ class FeatureExtractor:
     def __init__(self, df: pd.DataFrame) -> None:
         self.df = df
 
-    def feature_engineering(self):
-        pass
+    def feature_engineering(self, text_col: str, postprocessed = False):
+        """
+        Creates features on preprocessed data or pre and postprocessed data
+        """
+        if not postprocessed:
+            self.count_number_of_exclamation_mark()
+            self.count_number_of_uppercased_words()
+        else:
+            for terms in term_list:
+                self.extract_term_occurence(text_col, terms, )
 
     def _terms_in_string(self, terms: List[str], text: str):
-        return 1 if any([term in text for term in terms]) else 0
+        """
+        Returns 1 if all of the terms specified in list are present in the text.
+        Helper function for extract_term_occurence function
+        """
+        return 1 if all([term in text for term in terms]) else 0
 
     def extract_term_occurence(self, text_col: str, terms: str or List[str], new_col: str):
         """
         Creates new column with name new_col based on the occurence of term(s) in text column
         """
-        self.df[new_col] = self.df[text_col].apply(lambda s: self._terms_in_string(s))
-
-    def count_upper_words_in_string(self, text:str):
-        count = 0
-        for word in text:
-            if len(word) < 3:
-                continue
-            upper = 0
-            for i in range(len(word)):
-                if word[i].isupper():
-                    upper += 1
-            if upper > 3:
-                count += 1
-        return count 
+        self.df[new_col] = self.df[text_col].apply(lambda s: self._terms_in_string(terms=terms, text=s))
     
-    def count_upper_words(self, text_col: str):
-        self.df['upper_count'] = self.df[text_col].apply(lambda c: self.count_upper_words_in_string(c))
-
-
-
-
+    def count_number_of_uppercased_words(self, text_col: str, new_col: str = 'upper_words_count'):
+        self.df[new_col] = self.df[text_col].apply(lambda s: len([el for el in s.split(' ') if el.isupper()]))
     
-    def word_is_in_text(self, word, text):
-        if word in text:
-            return True
-        else:
-            return False
-        
-    def count_word(self, word, text):
-        count =  text.count(word)
-        return count
+    def count_number_of_exclamation_mark(self, text_col: str, new_col: str = "exclamation_marks_count"):
+        self.df[new_col] = self.df[text_col].apply(lambda s: s.count("!"))
     
     
 
