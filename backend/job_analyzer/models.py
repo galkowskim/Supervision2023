@@ -13,7 +13,7 @@ class JobAdvertisement(models.Model):
     class ProrityLevels(models.TextChoices):
         VERY_LOW = "1", _('Very Low')
         LOW = "2", _("Low")
-        HIGH_MEDIUM = "3", _("Medium")
+        MEDIUM = "3", _("Medium")
         HIGH = '4', _("High")
         VERY_HIGH = '5', _("Very High")
 
@@ -24,7 +24,10 @@ class JobAdvertisement(models.Model):
     )
 
     def __str__(self):
-        return self.date_added.str() + " " + self.source_page
+        if self.date_added and self.source_page:
+            return str(self.date_added) + " " + self.source_page
+        else:
+            return str(self.date_added) + " " + self.priority_level
 
     class Meta:
         order_with_respect_to = 'priority_level'

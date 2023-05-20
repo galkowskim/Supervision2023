@@ -31,7 +31,7 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy('base:main')
+        return reverse_lazy('job_analyzer:main')
 
     def get_context_data(self, **kwargs):
         context = super(CustomLoginView, self).get_context_data()
@@ -149,7 +149,7 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, 'Activation link is invalid!')
 
-    return redirect('base:main')
+    return redirect('job_analyzer:main')
 
 
 class ProfileUpdateView(UpdateView):
