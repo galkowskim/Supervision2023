@@ -60,14 +60,14 @@ class Oglaszamy24Scraper(Scraper):
     def get_df(n=10):
         urls = get_urls(n)
         df = pd.DataFrame(
-            columns=['title', 'desc', 'offer_posted', 'url'])
+            columns=['title', 'desc', 'post_creation', 'url'])
         for url in urls:
             try:
                 olx = Oglaszamy24Scraper(url)
             except:
                 continue
             df = pd.concat([df, pd.DataFrame({'title': [olx.title], 'desc': [olx.desc],
-                                              'offer_posted': [olx.offer_posted],
+                                              'post_creation': [olx.offer_posted],
                                               'url': [olx.url]})], ignore_index=True)
         return df
 

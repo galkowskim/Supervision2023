@@ -58,15 +58,15 @@ class OlxScraper(Scraper):
     def get_df(n=10):
         urls = [URL + x for x in get_urls(n) if 'http' not in x]
         df = pd.DataFrame(
-            columns=['title', 'desc', 'user_register', 'offer_posted', 'url'])
+            columns=['title', 'desc', 'user_registration_date', 'post_creation', 'url'])
         for url in urls:
             try:
                 olx = OlxScraper(url)
             except:
                 continue
             df = pd.concat([df, pd.DataFrame({'title': [olx.title], 'desc': [olx.desc],
-                                              'user_register': [olx.user_register],
-                                              'offer_posted': [olx.offer_posted],
+                                              'user_registration_date': [olx.user_register],
+                                              'post_creation': [olx.offer_posted],
                                               'url': [olx.url]})], ignore_index=True)
         return df
 
