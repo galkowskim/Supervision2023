@@ -1,0 +1,9 @@
+{% extends 'base/base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'base/main.css' %}" />
+<div class="confirm">
+  <h1>Welcome to advertisements analyzer page</h1>
+  <a href="{% url 'base:login' %}" class="btn btn-primary"
+    >Go to the login page</a
+  >
+</div>
+{% endblock content %}

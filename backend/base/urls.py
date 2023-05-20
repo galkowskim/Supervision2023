@@ -6,7 +6,7 @@ from .views import CustomLoginView, confirm_email, register, activate, password_
     CustomPasswordResetConfirmView, ProfileUpdateView, CustomPasswordChangeView
 
 urlpatterns = [
-    path('', MainPageView.as_view(), name='main'),
+    path('', MainPageView.as_view(), name='login'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page='base:login'), name='logout'),
     path('register/', register, name='register'),

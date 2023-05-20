@@ -21,7 +21,7 @@ from .models import CustomUser
 from .tokens import account_activation_token
 
 
-class MainPageView(LoginRequiredMixin, TemplateView):
+class MainPageView(TemplateView):
     template_name = "base/main.html"
 
 
