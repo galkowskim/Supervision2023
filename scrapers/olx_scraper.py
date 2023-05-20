@@ -38,6 +38,37 @@ def get_urls(n=10, page_limit=25):
     return urls
 
 
+month_to_digit1 = {
+    'stycznia': '01',
+    'lutego': '02',
+    'marca': '03',
+    'kwietnia': '04',
+    'maja': '05',
+    'czerwca': '06',
+    'lipca': '07',
+    'sierpnia': '08',
+    'września': '09',
+    'października': '10',
+    'listopada': '11',
+    'grudnia': '12'
+}
+
+month_to_digit2 = {
+    'styczeń': '01',
+    'luty': '02',
+    'marzec': '03',
+    'kwiecień': '04',
+    'maj': '05',
+    'czerwiec': '06',
+    'lipiec': '07',
+    'sierpień': '08',
+    'wrzesień': '09',
+    'październik': '10',
+    'listopad': '11',
+    'grudzień': '12'
+}
+
+
 class OlxScraper(Scraper):
     def __init__(self, url) -> None:
         self.TODAY = '20 maja 2023'
@@ -49,11 +80,16 @@ class OlxScraper(Scraper):
         soup = BeautifulSoup(page.content, 'html.parser')
         temp = soup.find_all('span', class_='css-19yf5ek')[0].text
         self.offer_posted = temp if 'Dzisiaj' not in temp else self.TODAY
+        self.offer_posted = self.offer_posted.split(
+            ' ')[2] + '-'+ month_to_digit1[self.offer_posted.split(' ')[1]] + '-'+ self.offer_posted.split(' ')[0]
+
         main_div = soup.find_all('div', class_='css-1wws9er')[0]
         self.desc = main_div.find_all('div', class_='er34gjf0')[0].text
         self.title = main_div.find_all('h1', class_='css-1soizd2')[0].text
         self.user_register = soup.find_all(
             'div', class_='css-16h6te1')[0].text[13:]
+        self.user_register = self.user_register.split(
+            ' ')[1] +'-'+ month_to_digit2[self.user_register.split(' ')[0]] +'-'+ '01'
 
     def get_df(n=10):
         urls = [URL + x for x in get_urls(n) if 'http' not in x]
