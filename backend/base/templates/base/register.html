@@ -3,14 +3,16 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'base/register.css' %}">
-    <div class="login-wrapper">
+<link rel="stylesheet" href="{% static 'base/register.css' %}">
+<div class="login-wrapper">
+    <div class="form-wrapper" id="register">
         <h1>Register</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <input type="submit" value="Register">
-    </form>
-    <p class="account">Already have an account? <a href="{% url 'base:login' %}">Login</a></p>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Register">
+            <p id="account">Already have an account? <br><a href="{% url 'base:login' %}">Login</a></br></p>
+        </form>
     </div>
+</div>
 {% endblock content %}
