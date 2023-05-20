@@ -16,4 +16,4 @@ class Model:
         self.model.fit(self.X_train, self.y_train)
     
     def predict(self):
-        self.model.predict(self.X_test, self.y_yest)
+        self.model.predict(self.X_test, self.y_test)
