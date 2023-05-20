@@ -55,6 +55,7 @@ class OlxScraper(Scraper):
         self.user_register = soup.find_all(
             'div', class_='css-16h6te1')[0].text[13:]
 
+    @staticmethod
     def get_df(n=10):
         urls = [URL + x for x in get_urls(n) if 'http' not in x]
         df = pd.DataFrame(

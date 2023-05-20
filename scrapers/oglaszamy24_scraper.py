@@ -57,6 +57,7 @@ class Oglaszamy24Scraper(Scraper):
         temp = [x.text for x in temp if x.text.startswith('Dodano:')]
         self.offer_posted = temp[0][8:] if temp else ''
 
+    @staticmethod
     def get_df(n=10):
         urls = get_urls(n)
         df = pd.DataFrame(
