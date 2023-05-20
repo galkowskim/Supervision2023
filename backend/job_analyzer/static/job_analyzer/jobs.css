@@ -1,0 +1,118 @@
+div{
+    width: 100%;
+    text-align: center;
+}
+
+#logo{
+    text-align: left;
+}
+
+
+
+h1 {
+    width: 90%;
+    margin-top: 3%;
+    padding: 3%;
+    font-size: 4vh;
+    color: white;
+    overflow-wrap: break-word;
+}
+
+#title_div{
+    background-color: rgb(2, 3, 129);
+    text-align: center;
+    border-radius: 1.1em;
+}
+
+#filters{
+    width: 80%;
+    text-align: center;
+    border-radius: 1.1em;
+    background-color: rgba(255, 105, 0, 1);
+    padding: 1%;
+    margin: auto;
+}
+
+#header_div{
+    margin-top: 1%;
+    background-color: rgb(2, 3, 129);
+    border-top-left-radius: 1.1em;
+    border-top-right-radius: 1.1em;
+
+}
+
+#header_div .row_div{
+    color: white;
+}
+
+#jobs_div{
+    overflow-y: scroll;
+    max-height: 40vh;
+    background-color: blanchedalmond;
+
+}
+
+
+
+
+.row_div {
+    width: 100%;
+    position: relative;
+    border-bottom: black solid 1px;
+    height: 10vh;
+    display: table;
+    max-width: 100%;
+}
+
+.row_div:last-child {
+    border-bottom: none;
+}
+
+.col_div {
+    display: table-cell;
+    height: 100%;
+    width: 10%;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 2vh;
+    max-width: 5vh;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 1%;
+}
+
+#jobs_div .row_div:hover{
+    background-color: burlywood;
+}
+
+#filters label, #filters span{
+    font-size: 3vh;
+}
+
+#filters input, #filters button, #filters select{
+    font-size: 2.5vh;
+}
+
+::-webkit-scrollbar {
+  width: 0.8em;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 1em;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(2, 3, 129);
+  border-radius: 1em;
+}
+
+a{
+    color:rgb(2, 3, 129);
+}
+
+a:visited{
+  color:rgb(2, 3, 129);
+}
