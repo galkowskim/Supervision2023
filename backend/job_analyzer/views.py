@@ -1,12 +1,14 @@
 from datetime import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from .models import JobAdvertisement
 
 
-class MainPageToDoList(LoginRequiredMixin, ListView):
+class MainPageJobAdvertisementList(LoginRequiredMixin, ListView):
     model = JobAdvertisement
     context_object_name = 'advertisements'
     template_name = 'job_analyzer/main.html'
@@ -35,3 +37,16 @@ class MainPageToDoList(LoginRequiredMixin, ListView):
         context['job_advertisements'] = job_advertisements
 
         return context
+
+
+class JobAdvertisementDetail(LoginRequiredMixin, DetailView):
+    model = JobAdvertisement
+    context_object_name = 'job'
+    template_name = 'job_analyzer/advertisement.html'
+
+    def get_object(self):
+        obj = super(JobAdvertisementDetail, self).get_object()
+        print('\ntutaj\n')
+        print(obj)
+        print()
+        return obj

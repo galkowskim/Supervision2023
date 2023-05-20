@@ -40,7 +40,11 @@
   <tbody>
     {% for job in job_advertisements %}
     <tr>
-      <td>{{ job.title }}</td>
+      <td>
+        <a href="{% url 'job_analyzer:advertisement' job.id %}"
+          >{{ job.title }}</a
+        >
+      </td>
       <td>{{ job.content }}</td>
       <td>{{ job.date_added }}</td>
       <td><a href="{{ job.source_page }}">{{job.source_page}}</a></td>

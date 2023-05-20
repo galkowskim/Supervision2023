@@ -156,7 +156,7 @@ class ProfileUpdateView(UpdateView):
     model = CustomUser
     form_class = CustomUserChangeForm
     template_name = 'base/user_update.html'
-    success_url = reverse_lazy('todolist:tasks')
+    success_url = reverse_lazy('job_analyzer:main')
 
     def get_object(self, *args, **kwargs):
         return self.request.user
@@ -168,4 +168,4 @@ class CustomPasswordChangeView(PasswordChangeView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy('todolist:tasks')
+        return reverse_lazy('job_analyzer:main')
