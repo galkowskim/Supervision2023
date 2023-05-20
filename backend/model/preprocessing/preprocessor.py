@@ -4,6 +4,7 @@ from nltk.tokenize import word_tokenize
 import spacy
 spacy.load('pl_core_news_sm')
 
+
 class Preprocessor:
     def __init__(self, df: pd.DataFrame, stopwords_file: str) -> None:
         self.df = df.copy()
@@ -16,6 +17,7 @@ class Preprocessor:
         """
         Performs preprocessing tasks on text data
         """
+        self.df = self.df[[text_col, account_creation_date_col, post_upload_date_col]]
         self.format_col_type(text_col, 'str')
         self.format_col_type(account_creation_date_col, 'datetime64[ns]')
         self.format_col_type(post_upload_date_col, 'datetime64[ns]')
