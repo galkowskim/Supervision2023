@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 
@@ -6,19 +8,30 @@ from .models import JobAdvertisement
 
 class MainPageToDoList(LoginRequiredMixin, ListView):
     model = JobAdvertisement
-    context_object_name = 'tasks'
+    context_object_name = 'advertisements'
+    template_name = 'job_analyzer/main.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['job_advertisements'] = JobAdvertisement.objects.filter(
-            user=self.request.user, project=None).order_by('priority_level')
-        context['count'] = context['job_advertisements'].filter(
-            status_of_completion=False).count()
+        context['job_advertisements'] = JobAdvertisement.objects.order_by(
+            'priority_level')
 
-        search_input = self.request.GET.get('search-area') or ''
-        if search_input:
-            context['tasks'] = context['tasks'].filter(
-                title__icontains=search_input)
+        date_added_from = self.request.GET.get('date_added_from')
+        date_added_to = self.request.GET.get('date_added_to')
+        priority_level = self.request.GET.get('priority_level')
 
-        context['search_input'] = search_input
+        job_advertisements = JobAdvertisement.objects.all()
+
+        if date_added_from and date_added_to:
+            date_added_from = datetime.strptime(date_added_from, "%Y-%m-%d")
+            date_added_to = datetime.strptime(date_added_to, "%Y-%m-%d")
+            job_advertisements = job_advertisements.filter(
+                date_added__range=(date_added_from, date_added_to))
+
+        if priority_level:
+            job_advertisements = job_advertisements.filter(
+                priority_level=priority_level)
+
+        context['job_advertisements'] = job_advertisements
+
         return context
