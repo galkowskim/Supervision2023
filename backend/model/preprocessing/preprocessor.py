@@ -5,7 +5,7 @@ import spacy
 
 class Preprocessor:
     def __init__(self, df: pd.DataFrame, stopwords_file: str) -> None:
-        self.df = df
+        self.df = df.copy()
         with open(stopwords_file, 'r', encoding='utf-8') as file:
             content = file.readlines()
             content = [line.strip() for line in content]
