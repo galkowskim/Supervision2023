@@ -58,8 +58,8 @@ class Pipeline:
         pass
 
     @staticmethod
-    def run(df):
-        preprocessor = Preprocessor(df, '../../../data/stop_words_polish.txt')
+    def run(df, stopwords_file_path: str):
+        preprocessor = Preprocessor(df, stopwords_file_path) #'../../../data/stop_words_polish.txt'
         preprocessor.preprocess_data(
             'desc', 'user_registration_date', 'post_creation')
         df_preprocessed = preprocessor.df
