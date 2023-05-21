@@ -15,6 +15,8 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from .utils import show_wordcloud
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 class MainPageJobAdvertisementList(LoginRequiredMixin, ListView):
@@ -44,10 +46,8 @@ class MainPageJobAdvertisementList(LoginRequiredMixin, ListView):
                 priority_level=priority_level)
 
         context['job_advertisements'] = job_advertisements
-
-        print(job_advertisements[0].priority_level)
-        context['jobs_very_low'] = job_advertisements.filter(priority_level=1).count()
-        context['jobs_low'] = job_advertisements.filter(priority_level=2).count()
+        context['jobs_very_low'] = job_advertisements.filter(priority_level='Very Low').count()
+        context['jobs_low'] = job_advertisements.filter(priority_level='Low').count()
         context['jobs_medium'] = job_advertisements.filter(priority_level=3).count()
         context['jobs_high'] = job_advertisements.filter(priority_level=4).count()
         context['jobs_very_high'] = job_advertisements.filter(priority_level=5).count()
@@ -62,6 +62,42 @@ def details(request, pk):
     context = {'job': job,
                'wordcloud': wordcloud}
     return render(request, 'job_analyzer/advertisement.html', context)
+
+
+@csrf_exempt
+def update_fake_status(request: HttpRequest):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        job_id = request.POST.get('job_id')
+        is_fake_str = request.POST.get('is_fake')
+
+        # Convert is_fake_str to a boolean value
+        print(is_fake_str)
+        print(is_fake_str.lower())
+        print(is_fake_str.lower() == 'false')
+        if is_fake_str.lower() == 'false':
+            new_is_fake = True
+            print('here')
+        elif is_fake_str.lower() == 'true':
+            new_is_fake = False
+            print('here2')
+        # Retrieve the job advertisement
+        try:
+            job = JobAdvertisement.objects.get(id=job_id)
+        except JobAdvertisement.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Job advertisement not found'})
+
+        # Update the fake status
+        job.is_fake = new_is_fake
+        print('przed savem: ', new_is_fake)
+        print(JobAdvertisement.objects.get(id=job_id).is_fake)
+        job.save()
+        print('po')
+        print(JobAdvertisement.objects.get(id=job_id).is_fake)
+        print('\n\n')
+
+        return JsonResponse({'status': 'success'})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
 
 
 def dashboard(request):

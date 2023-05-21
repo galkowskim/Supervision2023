@@ -6,7 +6,6 @@
   rel="stylesheet"
 />
 <link rel="stylesheet" href="{% static 'job_analyzer/jobs.css' %}" />
-
 <div id="title_div"><h1>Ogłoszenia</h1></div>
 <div id="filters">
   <form method="GET" action="">
@@ -59,7 +58,16 @@
         <div class="col_div"><p>{{ job.date_of_account_creation }}</p></div>
         <div class="col_div"><p>{{ job.fake_probability }}</p></div>
         <div class="col_div"><p>{{ job.get_priority_level_display }}</p></div>
-        <div class="col_div"><p>{{ job.is_fake }}</p></div>
+        {% comment %} <div class="col_div"><p>{{ job.is_fake }}</p></div> {% endcomment %}
+        <div class="col_div">
+          <p class="fake-status" data-job-id="{{ job.id }}" data-is-fake="{{ job.is_fake }}">
+            {% if job.is_fake == True %}
+              <span class="fake-label">Fake</span>
+            {% elif job.is_fake == False %}
+              <span class="fake-label">Real</span>
+            {% endif %}
+          </p>
+        </div>
     </div>
   {% empty %}
   <div class="row_div">
@@ -67,4 +75,39 @@
   </div>
   {% endfor %}
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('.fake-status').click(function() {
+    var jobId = $(this).data('job-id');
+    var isFake = $(this).data('is-fake');
+    var newFakeStatus = !isFake; // Toggle the fake status
+
+    $.ajax({
+      url: 'update_fake_status/',
+      type: 'POST',
+      data: {
+        job_id: jobId,
+        is_fake: newFakeStatus
+      },
+      success: function() {
+        // Update the UI with the new fake status
+        if (newFakeStatus) {
+          $(this).data('is-fake', True);
+          $(this).find('.fake-label').text('Fake');
+        } else {
+          $(this).data('is-fake', False);
+          $(this).find('.fake-label').text('Real');
+        }
+        location.reload();
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        // Handle the error gracefully
+        console.log('Error:', errorThrown);
+      }
+    });
+  });
+});
+</script>
+
 {% endblock content %}
