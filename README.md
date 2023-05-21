@@ -33,12 +33,17 @@ Wymagane pakiety znajdują się w pliku `requirements.txt`. Rekomendujemy używa
 ### Konteneryzacja
 Cała aplikacja jest skonteneryzowana w postaci kontenerów Dockerowych. Dzięki temu, cała aplikacja jest gotowa do użytku. Aby to wykonać, należy następującymi komendami stworzyć i uruchomić zbudowany obraz:
 
+Aby uruchomić aplikacje należy:
+```
+sudo docker run -p 8000:8000 -it app
+sudo docker build -t app .
+```
+
 ### Celery commands
 ```
 docker run -d -p 6379:6379 redis
 
 celery -A supervision_app worker  --loglevel=INFO -E
 ```
-
-Also you need to remember to add script to crontab. It should be run every 10 minutes.
+Należy również pamiętać o dodaniu skryptu do crontab. Powinien być uruchamiany co ~10 minut.
 ```
