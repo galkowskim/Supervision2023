@@ -25,8 +25,7 @@ def scrape_data():
 
     df = pd.concat([df_olx, df_oglaszamy24, df_sprzedajemy], ignore_index=True)
 
-    X = df[['desc', 'user_register', 'offer_posted']]
-    X.columns = ['desc', 'user_registration_date', 'post_creation']
+    X = df[['desc', 'user_registration_date', 'post_creation']]
     x_transformed = pipeline.run(X, '/home/galkowskim/Desktop/Supervision2023/backend/model/data/stop_words_polish.txt')
     df['fake_probability'] = model.predict(x_transformed)
 
