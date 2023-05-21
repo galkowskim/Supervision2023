@@ -81,7 +81,7 @@ class OlxScraper(Scraper):
         temp = soup.find_all('span', class_='css-19yf5ek')[0].text
         self.offer_posted = temp if 'Dzisiaj' not in temp else self.TODAY
         self.offer_posted = self.offer_posted.split(
-            ' ')[2] + '-'+ month_to_digit1[self.offer_posted.split(' ')[1]] + '-'+ self.offer_posted.split(' ')[0]
+            ' ')[2] + '-' + month_to_digit1[self.offer_posted.split(' ')[1]] + '-' + self.offer_posted.split(' ')[0]
 
         main_div = soup.find_all('div', class_='css-1wws9er')[0]
         self.desc = main_div.find_all('div', class_='er34gjf0')[0].text
@@ -89,7 +89,7 @@ class OlxScraper(Scraper):
         self.user_register = soup.find_all(
             'div', class_='css-16h6te1')[0].text[13:]
         self.user_register = self.user_register.split(
-            ' ')[1] +'-'+ month_to_digit2[self.user_register.split(' ')[0]] +'-'+ '01'
+            ' ')[1] + '-' + month_to_digit2[self.user_register.split(' ')[0]] + '-' + '01'
 
     def get_df(n=10):
         urls = [URL + x for x in get_urls(n) if 'http' not in x]
