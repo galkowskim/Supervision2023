@@ -69,11 +69,11 @@ def dashboard(request):
     fake = JobAdvertisement.objects.filter(is_fake=True)
     true = JobAdvertisement.objects.filter(is_fake=False)
 
-    priority = [jobs.filter(priority_level=1).count(),
-                jobs.filter(priority_level=2).count(),
-                jobs.filter(priority_level=3).count(),
-                jobs.filter(priority_level=4).count(),
-                jobs.filter(priority_level=5).count()]
+    priority = [jobs.filter(priority_level='Very Low').count(),
+                jobs.filter(priority_level='Low').count(),
+                jobs.filter(priority_level='Medium').count(),
+                jobs.filter(priority_level='High').count(),
+                jobs.filter(priority_level='Very High').count()]
 
     priority_plot = plot_priority(priority)
 
