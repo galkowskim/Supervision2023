@@ -1,0 +1,36 @@
+#main_text{
+    width: 100%;
+}
+
+h1 {
+    width: 90%;
+    margin-top: 3%;
+    padding: 3%;
+    background-color: rgb(2, 3, 129);
+    text-align: center;
+    border-radius: 1.1em;
+    font-size: 6vh;
+    color: white;
+    overflow-wrap: break-word;
+}
+
+#main_text p{
+    font-size: 4vh;
+    overflow-wrap: break-word;
+    color: white;
+    text-shadow: -1px 1px 0 #000,
+                          1px 1px 0 #000,
+                         1px -1px 0 #000,
+                        -1px -1px 0 #000;
+}
+
+#main_a{
+    width: 100%;
+    text-align: center;
+    font-size: 5vh;
+}
+
+#main_a a{
+    color: rgba(255, 105, 0, 1);
+}
+

@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="form-wrapper">
+        <h1>Login</h1>
+        {% if email_confirmed %}
+        <h3>{{ email_confirmed }}</h3>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Login">
+            <p class="forgot-password"><a href="{% url 'base:password_reset' %}">Forgot password?</a></p>
+            <p class="no-account">Don't have an account? <br><a href="{% url 'base:register' %}">Register</a><br></p>
+        </form>
+    </div>
+</div>
+{% endblock content %}

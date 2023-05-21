@@ -1,0 +1,24 @@
+{% extends 'job_analyzer/base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'job_analyzer/detail.css' %}"/>
+<div id="title_div"><h1>Job Advertisement Detail</h1></div>
+<a href="{% url 'job_analyzer:main' %}">Back to List</a>
+<div class="row_div">
+    <div class="col_div">
+        <h2>{{ job.title }}</h2>
+        <p>Date Added: {{ job.date_added }}</p>
+        <p>Source Page: {{ job.source_page }}</p>
+        <p>Date of Account Creation: {{ job.date_of_account_creation }}</p>
+        <p>Priority Level: {{ job.get_priority_level_display }}</p>
+        <p>Fake Probability: {{ job.fake_probability }}</p>
+        <p>Content: {{ job.content }}</p>
+    </div>
+    <div class="col_div">
+        <img src="https://images.genius.com/55dbe2169199f3198c1957b324c41789.900x900x1.jpg">
+    </div>
+</div>
+<div>
+    {% if wordcloud is not None %}
+        <img id="wordcloud" src="{{ wordcloud }}">
+    {% endif %}
+</div>
+{% endblock content %}

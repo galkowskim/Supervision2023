@@ -1,0 +1,16 @@
+#error_1_id_username, #error_1_id_email {
+    color: red;
+}
+
+#hint_id_email, #hint_id_password2 {
+    display: none;
+}
+
+.controls {
+    display: flex;
+}
+
+#error_1_id_password2, #error_2_id_password2,
+#error_3_id_password2, #error_4_id_password2 {
+    color: firebrick;
+}
