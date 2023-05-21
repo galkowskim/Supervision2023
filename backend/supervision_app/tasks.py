@@ -1,3 +1,5 @@
+from pathlib import Path
+from scrapers import oglaszamy24_scraper, olx_scraper, sprzedajemy_scraper
 from .celery import app
 from job_analyzer.models import JobAdvertisement
 from model.pipeline.pipeline import Pipeline
@@ -7,10 +9,11 @@ from datetime import datetime
 import pickle
 import sys
 sys.path.append("..")
-from scrapers import oglaszamy24_scraper, olx_scraper, sprzedajemy_scraper
 
+file_path = Path(__file__).resolve()
+DATA_PATH = file_path.parent.parent.parent.joinpath('data')
 
-MODEL_PATH = '/home/galkowskim/Desktop/Supervision2023/model_baseline.pkl'
+MODEL_PATH = DATA_PATH.joinpath('model_baseline.pkl')
 
 
 @shared_task
@@ -27,7 +30,8 @@ def scrape_data():
 
     X = df[['desc', 'user_register', 'offer_posted']]
     X.columns = ['desc', 'user_registration_date', 'post_creation']
-    x_transformed = pipeline.run(X, '/home/galkowskim/Desktop/Supervision2023/backend/model/data/stop_words_polish.txt')
+    x_transformed = pipeline.run(
+        X, DATA_PATH.joinpath('stop_words_polish.txt'))
     df['fake_probability'] = model.predict(x_transformed)
 
     # write lambda function which will assign priority level based on fake_probability
@@ -36,14 +40,17 @@ def scrape_data():
     # 0.5 - 0.75 - medium
     # 0.25 - 0.5 - low
     # 0.1 - 0.25 - very low
-    df['priority_level'] = df['fake_probability'].apply(lambda x: 'Very High' if x >= 0.9 else 'High' if x >= 0.75 else 'Medium' if x >= 0.5 else 'Low' if x >= 0.25 else 'Very Low')
+    df['priority_level'] = df['fake_probability'].apply(
+        lambda x: 'Very High' if x >= 0.9 else 'High' if x >= 0.75 else 'Medium' if x >= 0.5 else 'Low' if x >= 0.25 else 'Very Low')
 
     df['date_added'] = df['offer_posted']
 
-    df['is_fake'] = df['priority_level'].apply(lambda x: True if x != 'Low' and x != 'Very Low' else False)
+    df['is_fake'] = df['priority_level'].apply(
+        lambda x: True if x != 'Low' and x != 'Very Low' else False)
 
     for index, row in df.iterrows():
         add_job_to_db(row)
+
 
 def add_job_to_db(row):
 
@@ -59,6 +66,7 @@ def add_job_to_db(row):
         fake_probability=row['fake_probability'])
 
     job.save()
+
 
 def scrape_data_from_source(n=1):
     df_olx = olx_scraper.OlxScraper.get_df(n)
