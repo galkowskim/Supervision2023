@@ -1,10 +1,12 @@
+from pathlib import Path
+from model.preprocessing.preprocessor import Preprocessor
+import pandas as pd
+import importlib
+from model.feature_engineering.feature_extractor import FeatureExtractor
 import sys
 sys.path.append('..')
-from model.feature_engineering.feature_extractor import FeatureExtractor
-import importlib
-import pandas as pd
-from model.preprocessing.preprocessor import Preprocessor
-
+file_path = Path(__file__).resolve()
+DATA_PATH = file_path.parent.parent.parent.parent.joinpath('data')
 fe_dict = {'sprzedac': ['sprzedać'],
            'kupic': ['kupić'],
            'konto': ['konto'],
@@ -59,7 +61,7 @@ class Pipeline:
 
     @staticmethod
     def run(df, stopwords_file_path: str):
-        preprocessor = Preprocessor(df, stopwords_file_path) #'../../../data/stop_words_polish.txt'
+        preprocessor = Preprocessor(df, stopwords_file_path)
         preprocessor.preprocess_data(
             'desc', 'user_registration_date', 'post_creation', 'fake')
         df_preprocessed = preprocessor.df
@@ -69,7 +71,7 @@ class Pipeline:
             'desc', fe_dict, 'user_registration_date', 'post_creation')
 
         postprocessor = Preprocessor(
-            fe.df, '/home/galkowskim/Desktop/Supervision2023/backend/model/data/stop_words_polish.txt')
+            fe.df, DATA_PATH.joinpath('stop_words_polish.txt'))
         postprocessor.postprocess_data('desc')
         df_preprocessed = postprocessor.df
 

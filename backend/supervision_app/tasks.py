@@ -9,8 +9,11 @@ import sys
 sys.path.append("..")
 from scrapers import oglaszamy24_scraper, olx_scraper, sprzedajemy_scraper
 
+from pathlib import Path
+file_path = Path(__file__).resolve()
+DATA_PATH = file_path.parent.parent.parent.joinpath('data')
 
-MODEL_PATH = '/home/galkowskim/Desktop/Supervision2023/model_baseline.pkl'
+MODEL_PATH = DATA_PATH.joinpath('model_baseline.pkl')
 
 
 @shared_task
@@ -27,7 +30,7 @@ def scrape_data():
 
     X = df[['desc', 'user_registration_date', 'post_creation']]
 
-    x_transformed = pipeline.run(X, '/home/galkowskim/Desktop/Supervision2023/backend/model/data/stop_words_polish.txt')
+    x_transformed = pipeline.run(X, DATA_PATH.joinpath('stop_words_polish.txt'))
 
     df['date_added'] = df['post_creation']
     df['date_of_account_creation'] = df['user_registration_date']

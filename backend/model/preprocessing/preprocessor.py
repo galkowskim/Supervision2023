@@ -5,6 +5,7 @@ import spacy
 spacy.load('pl_core_news_sm')
 
 
+
 class Preprocessor:
     def __init__(self, df: pd.DataFrame, stopwords_file: str) -> None:
         self.df = df.copy()
