@@ -21,12 +21,18 @@ def scrape_data():
     pipeline = Pipeline()
 
     df_olx, df_oglaszamy24, df_sprzedajemy = scrape_data_from_source(
-        n=2)
+        n=1)
 
     df = pd.concat([df_olx, df_oglaszamy24, df_sprzedajemy], ignore_index=True)
 
     X = df[['desc', 'user_registration_date', 'post_creation']]
+
     x_transformed = pipeline.run(X, '/home/galkowskim/Desktop/Supervision2023/backend/model/data/stop_words_polish.txt')
+
+    df['date_added'] = df['post_creation']
+    df['date_of_account_creation'] = df['user_registration_date']
+
+    x_transformed = x_transformed.drop(['desc', 'user_registration_date', 'post_creation'], axis=1)
     df['fake_probability'] = model.predict(x_transformed)
 
     # write lambda function which will assign priority level based on fake_probability
@@ -36,8 +42,6 @@ def scrape_data():
     # 0.25 - 0.5 - low
     # 0.1 - 0.25 - very low
     df['priority_level'] = df['fake_probability'].apply(lambda x: 'Very High' if x >= 0.9 else 'High' if x >= 0.75 else 'Medium' if x >= 0.5 else 'Low' if x >= 0.25 else 'Very Low')
-
-    df['date_added'] = df['offer_posted']
 
     df['is_fake'] = df['priority_level'].apply(lambda x: True if x != 'Low' and x != 'Very Low' else False)
 
@@ -54,9 +58,10 @@ def add_job_to_db(row):
         content=row['desc'],
         date_added=row['date_added'],
         source_page=row['url'],
-        date_of_account_creation=datetime.now(),
-        fake_probability=row['fake_probability'])
-
+        date_of_account_creation=row['date_of_account_creation'],
+        fake_probability=row['fake_probability'],
+        priority_level=row['priority_level'],
+        is_fake=row['is_fake'],)
     job.save()
 
 def scrape_data_from_source(n=1):

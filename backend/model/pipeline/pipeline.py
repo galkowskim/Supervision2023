@@ -69,7 +69,7 @@ class Pipeline:
             'desc', fe_dict, 'user_registration_date', 'post_creation')
 
         postprocessor = Preprocessor(
-            fe.df, '../../../data/stop_words_polish.txt')
+            fe.df, '/home/galkowskim/Desktop/Supervision2023/backend/model/data/stop_words_polish.txt')
         postprocessor.postprocess_data('desc')
         df_preprocessed = postprocessor.df
 

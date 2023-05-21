@@ -46,11 +46,11 @@ class MainPageJobAdvertisementList(LoginRequiredMixin, ListView):
         context['job_advertisements'] = job_advertisements
 
         print(job_advertisements[0].priority_level)
-        context['jobs_very_low'] = job_advertisements.filter(priority_level=1).count()
-        context['jobs_low'] = job_advertisements.filter(priority_level=2).count()
-        context['jobs_medium'] = job_advertisements.filter(priority_level=3).count()
-        context['jobs_high'] = job_advertisements.filter(priority_level=4).count()
-        context['jobs_very_high'] = job_advertisements.filter(priority_level=5).count()
+        context['jobs_very_low'] = job_advertisements.filter(priority_level='Very Low').count()
+        context['jobs_low'] = job_advertisements.filter(priority_level='Low').count()
+        context['jobs_medium'] = job_advertisements.filter(priority_level='Medium').count()
+        context['jobs_high'] = job_advertisements.filter(priority_level='High').count()
+        context['jobs_very_high'] = job_advertisements.filter(priority_level='Very High').count()
 
         return context
 
