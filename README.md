@@ -38,6 +38,7 @@ Aby uruchomić aplikacje należy:
 sudo docker run -p 8000:8000 -it app
 sudo docker build -t app .
 ```
+Warto wziąć pod uwagę, że po uruchomieniu nie bedzie w niej żadnych rekordów. Należy po uruchomieniu aplikacji uruchomić skrypt `script.sh`. Ewentualnie dodać do crontaba wywoływanie tego skryptu, co jest opisane poniżej.
 
 ### Celery commands
 ```
@@ -45,5 +46,5 @@ docker run -d -p 6379:6379 redis
 
 celery -A supervision_app worker  --loglevel=INFO -E
 ```
-Należy również pamiętać o dodaniu skryptu do crontab. Powinien być uruchamiany co ~10 minut.
+Należy również pamiętać o dodaniu wywoływania skryptu (`script.sh`) do crontab'a. Powinien być uruchamiany co ~10 minut.
 ```
