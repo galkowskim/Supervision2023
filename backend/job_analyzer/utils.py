@@ -39,7 +39,8 @@ def plot_priority(data):
     try:
         labels = ['B. niski', 'Niski', 'Średni', 'Wysoki', 'B. wysoki']
         plt.figure(figsize=(20, 10), facecolor='white')
-        plt.bar(labels, data, color='orange', width=0.4)
+        plt.grid(color='grey', linestyle='-', linewidth=0.25, alpha=1)
+        plt.bar(labels, data, color='orange', width=0.4, edgecolor='darkblue')
         plt.xlabel("Priorytet", fontsize=45)
         plt.ylabel("Liczba ogłoszeń", fontsize=45)
         plt.xticks(fontsize=30)
@@ -58,7 +59,8 @@ def plot_fake(data):
     try:
         labels = ['Tak', 'Nie']
         plt.figure(figsize=(20, 10), facecolor='white')
-        plt.bar(labels, data, color='orange', width=0.4)
+        plt.grid(color='grey', linestyle='-', linewidth=0.25, alpha=1)
+        plt.bar(labels, data, color='orange', width=0.4, edgecolor='darkblue')
         plt.xlabel("Czy oszustwo?", fontsize=45)
         plt.ylabel("Liczba ogłoszeń", fontsize=45)
         plt.xticks(fontsize=30)
