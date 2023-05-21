@@ -7,46 +7,46 @@
 />
 <link rel="stylesheet" href="{% static 'job_analyzer/jobs.css' %}" />
 
-<div id="title_div"><h1>Job Advertisements</h1></div>
+<div id="title_div"><h1>Ogłoszenia</h1></div>
 <div id="filters">
   <form method="GET" action="">
-    <label for="date_added_from">Filter by Date Added:</label>
+    <label for="date_added_from">Filruj po dacie dodania:</label>
     <input type="date" id="date_added_from" name="date_added_from" />
     <span>to</span>
     <input type="date" id="date_added_to" name="date_added_to" />
     <br />
-    <label for="priority_level">Filter by Priority Level:</label>
+    <label for="priority_level">Filtruj po priorytecie:</label>
     <select id="priority_level" name="priority_level">
-      <option value="">All</option>
-      <option value="1">Very Low</option>
-      <option value="2">Low</option>
-      <option value="3">Medium</option>
-      <option value="4">High</option>
-      <option value="5">Very High</option>
+      <option value="">Wszystkie</option>
+      <option value="1">Bardzo niski</option>
+      <option value="2">Niski</option>
+      <option value="3">Średni</option>
+      <option value="4">Wysoki</option>
+      <option value="5">Bardzo wysoki</option>
     </select>
     <br />
-    <button type="submit">Apply Filters</button>
+    <button type="submit">Zastosuj filtry</button>
   </form>
   <div class="statistics">
     <div class="statistics_wrapper">
-      <div>No. jobs with very low probability: {{ jobs_very_low}}</div>
-      <div>No. jobs with low probability: {{ jobs_low }}</div>
-      <div>No. jobs with medium probability: {{ jobs_medium }}</div>
-      <div>No. jobs with high probability: {{ jobs_high }}</div>
-      <div>No. jobs with very high probability: {{ jobs_very_high }}</div>
+      <div>Bardzo niski priorytet: {{ jobs_very_low}}</div>
+      <div>Niski priorytet: {{ jobs_low }}</div>
+      <div>Średni priorytet: {{ jobs_medium }}</div>
+      <div>Wysoki priorytet: {{ jobs_high }}</div>
+      <div>Bardzo wysoki priorytet: {{ jobs_very_high }}</div>
     </div>
   </div>
 </div>
 <div id="header_div">
   <div class="row_div">
-    <div class="col_div">Title</div>
-    <div class="col_div">Content</div>
-    <div class="col_div">Date Added</div>
-    <div class="col_div">Source Page</div>
-    <div class="col_div">Date of Account Creation</div>
-    <div class="col_div">Fake Probability</div>
-    <div class="col_div">Priority Level</div>
-    <div class="col_div">Is Fake</div>
+    <div class="col_div">Tytuł</div>
+    <div class="col_div">Zawartość</div>
+    <div class="col_div">Data dodania</div>
+    <div class="col_div">Strona źródłowa</div>
+    <div class="col_div">Data założenia konta</div>
+    <div class="col_div">Prawdopodobieństwo oszustwa</div>
+    <div class="col_div">Priorytet</div>
+    <div class="col_div">Czy oszustwo</div>
   </div>
 </div>
 <div id="jobs_div">

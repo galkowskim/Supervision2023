@@ -1,0 +1,28 @@
+div {
+    width: 100%;
+    text-align: center;
+}
+
+#logo {
+    text-align: left;
+}
+
+
+h1 {
+    width: 90%;
+    margin-top: 3%;
+    padding: 3%;
+    font-size: 4vh;
+    color: white;
+    overflow-wrap: break-word;
+}
+
+#title_div {
+    background-color: rgb(2, 3, 129);
+    text-align: center;
+    border-radius: 1.1em;
+}
+
+#container{
+    background-color: rgb(2, 3, 129);
+}
