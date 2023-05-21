@@ -124,6 +124,22 @@ h1 {
     flex: 2;
 }
 
+.fake-status {
+    background-color: orange;
+    padding: 0.1rem;
+    border-radius: 1.2em;
+    text-align: center;
+}
+
+.fake-status > span {
+    font-size: 2vh;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}
+
 .statistics {
     flex: 1;
     background-color: #020381;
