@@ -27,6 +27,15 @@
     <br />
     <button type="submit">Apply Filters</button>
   </form>
+  <div class="statistics">
+    <div class="statistics_wrapper">
+      <div>No. jobs with very low probability: {{ jobs_very_low}}</div>
+      <div>No. jobs with low probability: {{ jobs_low }}</div>
+      <div>No. jobs with medium probability: {{ jobs_medium }}</div>
+      <div>No. jobs with high probability: {{ jobs_high }}</div>
+      <div>No. jobs with very high probability: {{ jobs_very_high }}</div>
+    </div>
+  </div>
 </div>
 <div id="header_div">
   <div class="row_div">
@@ -37,6 +46,7 @@
     <div class="col_div">Date of Account Creation</div>
     <div class="col_div">Fake Probability</div>
     <div class="col_div">Priority Level</div>
+    <div class="col_div">Is Fake</div>
   </div>
 </div>
 <div id="jobs_div">
@@ -49,6 +59,7 @@
         <div class="col_div"><p>{{ job.date_of_account_creation }}</p></div>
         <div class="col_div"><p>{{ job.fake_probability }}</p></div>
         <div class="col_div"><p>{{ job.get_priority_level_display }}</p></div>
+        <div class="col_div"><p>{{ job.is_fake }}</p></div>
     </div>
   {% empty %}
   <div class="row_div">

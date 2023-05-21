@@ -40,6 +40,7 @@ def scrape_data():
 
     df['date_added'] = df['offer_posted']
 
+    df['is_fake'] = df['priority_level'].apply(lambda x: True if x != 'Low' and x != 'Very Low' else False)
 
     for index, row in df.iterrows():
         add_job_to_db(row)

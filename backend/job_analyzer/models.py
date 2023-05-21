@@ -9,6 +9,7 @@ class JobAdvertisement(models.Model):
     source_page = models.TextField(null=True, blank=True)
     date_of_account_creation = models.DateTimeField(null=True, blank=True)
     fake_probability = models.FloatField(null=True, blank=True)
+    is_fake = models.BooleanField(default=False)
 
     class ProrityLevels(models.TextChoices):
         VERY_LOW = "1", _('Very Low')

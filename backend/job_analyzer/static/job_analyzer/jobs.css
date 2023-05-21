@@ -115,6 +115,35 @@ h1 {
     overflow: visible;
 }
 
+#filters {
+    display: flex;
+    flex-direction: row;
+}
+
+#filters > form {
+    flex: 2;
+}
+
+.statistics {
+    flex: 1;
+    background-color: #020381;
+    color: white;
+    padding: 0.5%;
+    border-radius: 1.2em;
+}
+
+.statistics_wrapper {
+    width: 80%;
+    margin:auto;
+    text-align: left;
+}
+
+.statistics_wrapper > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 #filters label, #filters span{
     font-size: 2.5vh;
     font-weight: bold;
