@@ -43,15 +43,27 @@ class FeatureExtractor:
             lambda s: self._terms_in_string(terms=terms, text=s))
 
     def count_number_of_uppercased_words(self, text_col: str, new_col: str = 'upper_words_count'):
+        """
+        Creates new column with name new_col based on the number of uppercased words in text column
+        """
         self.df[new_col] = self.df[text_col].apply(
             lambda s: len([el for el in s.split(' ') if el.isupper()]))
 
     def count_number_of_exclamation_mark(self, text_col: str, new_col: str = "exclamation_marks_count"):
+        """
+        Creates new column with name new_col based on the number of exclamation marks in text column
+        """
         self.df[new_col] = self.df[text_col].apply(lambda s: s.count("!"))
 
     def get_n_of_days_from_account_creation(self, acc_creation_date_col: str, post_upload_date_col: str, new_col: str):
+        """
+        Creates new column with name new_col based on the number of days between account creation and post upload
+        """
         self.df[new_col] = (self.df[acc_creation_date_col] -
                             self.df[post_upload_date_col]).dt.components['hours']
 
     def get_text_length(self, text_col: str, new_col: str = 'text_length'):
+        """
+        Creates new column with name new_col based on the length of text column
+        """
         self.df[new_col] = self.df[text_col].apply(lambda s: len(s))

@@ -6,11 +6,15 @@ from scrapers.scraper import Scraper
 URL = 'https://olx.pl'
 
 
-def get_urls(n=10, page_limit=25):
-    '''
-    n - number of offers to scrape
-    page_limit - number of pages to scrape
-    '''
+def get_urls(n:int =10, page_limit: int=25):
+    """
+    Creates a list of urls to offers on olx.pl
+
+    :param n: int - number of offers to scrape
+    :param page_limit: int - max number of pages to scrape
+
+    :return: list - list of urls to offers
+    """
     urls = []
     no = 0
     i = 1
@@ -92,6 +96,13 @@ class OlxScraper(Scraper):
             ' ')[1] + '-' + month_to_digit2[self.user_register.split(' ')[0]] + '-' + '01'
 
     def get_df(n=10):
+        """
+        Creates a dataframe with offers from olx.pl
+
+        :param n: int - number of offers to scrape
+
+        :return: pd.DataFrame - dataframe with offers
+        """
         urls = [URL + x for x in get_urls(n) if 'http' not in x]
         df = pd.DataFrame(
             columns=['title', 'desc', 'user_registration_date', 'post_creation', 'url'])

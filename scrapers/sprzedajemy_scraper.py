@@ -5,30 +5,14 @@ import datetime
 
 URL = 'https://sprzedajemy.pl/wszystkie-ogloszenia?items_per_page=60'
 
-def create_url_list(n = 1000):
-    offers_to_scrape = n
-    offers_scraped = 0
+def user_registration_date_to_datetime(date_string: str) -> datetime.datetime:
+    """
+    Converts date string in format like 'Sty 2020' to date
 
-    page_urls = set()
+    :param date_string: str - date string
 
-    while offers_scraped <= offers_to_scrape:
-        page_url = URL + '&offset=' + str(offers_scraped)
-        page = requests.get(page_url)
-        soup = BeautifulSoup(page.content, "html.parser")
-        page_offers = soup.find_all('ul', class_='list normal')[0].find_all('article', class_='element')
-                    
-        for offer in page_offers:
-            try:
-                offer_url = offer.find('a')['href']
-                page_urls.add('https://sprzedajemy.pl'+offer_url)
-            except:
-                continue
-        offers_scraped += 60
-    return list(page_urls)
-
-URL = 'https://sprzedajemy.pl/wszystkie-ogloszenia?items_per_page=60'
-
-def user_registration_date_to_datetime(date_string):
+    :return: datetime.datetime - date
+    """
     month_str = date_string.split(' ')[0]
     year = int(date_string.split(' ')[1])
     day = 1
@@ -49,7 +33,15 @@ def user_registration_date_to_datetime(date_string):
     date = pd.to_datetime(f'{year}-{month_str_dict[month_str]}-{day}')
     return date
 
-def post_creation_to_date(date_string):
+def post_creation_to_date(date_string: str) -> datetime.datetime:
+    """
+    Converts date string in format like '20 Maj 12:34' to date
+
+    :param date_string: str - date string
+
+    :return: datetime.datetime - date
+
+    """
     month_str = date_string.split(' ')[1]
     year = datetime.datetime.today().year
     day = int(date_string.split(' ')[0])
@@ -73,7 +65,14 @@ def post_creation_to_date(date_string):
         date = date - pd.DateOffset(years=1)
     return date
 
-def create_url_list(n = 1000):
+def create_url_list(n: int = 1000) -> list:
+    """
+    Creates a list of urls to offers on sprzedajemy.pl
+
+    :param n: int - number of offers to scrape
+
+    :return: list - list of urls to offers
+    """
     offers_to_scrape = n
     offers_scraped = 0
 
@@ -94,7 +93,15 @@ def create_url_list(n = 1000):
         offers_scraped += 60
     return list(page_urls)
 
-def create_df(n = 1000):
+def create_df(n: int = 1000) -> pd.DataFrame:
+    """
+    Creates a dataframe with offers from sprzedajemy.pl
+    
+    :param n: int - number of offers to scrape
+
+    :return: pd.DataFrame - dataframe with offers
+    """
+
     page_urls = create_url_list(n)
     df = pd.DataFrame(columns=['title', 'desc', 'user_registration_date', 'post_creation', 'user_offers', 'lat', 'lon', 'city', 'url'])
 

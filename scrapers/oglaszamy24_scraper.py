@@ -9,7 +9,16 @@ fake = Faker()
 URL = 'http://www.oglaszamy24.pl/ogloszenia/?std=1&results=1'
 
 
-def get_urls(n=10, page_limit=25):
+def get_urls(n: int=10, page_limit: int=25) -> list:
+    """
+    Creates a list of urls to offers on oglaszamy24.pl
+
+    :param n: int - number of offers to scrape
+    :param page_limit: int - max number of pages to scrape
+
+    :return: list - list of urls to offers
+    """
+
     urls = []
     no = 0
     i = 1
@@ -86,6 +95,13 @@ class Oglaszamy24Scraper(Scraper):
 
 
     def get_df(n=10):
+        """
+        Creates a dataframe with offers from oglaszamy24.pl
+
+        :param n: int - number of offers to scrape
+
+        :return: pd.DataFrame - dataframe with offers
+        """
         urls = get_urls(n)
         df = pd.DataFrame(
             columns=['title', 'desc', 'user_registration_date', 'post_creation', 'url'])
