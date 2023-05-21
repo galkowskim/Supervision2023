@@ -7,11 +7,36 @@
 />
 <link rel="stylesheet" href="{% static 'job_analyzer/dashboard.css' %}"/>
 
-
+<div id="navi"><a href="{% url 'job_analyzer:main'%}">Ogłoszenia</a></div>
 <div id="title_div"><h1>Dashboard</h1></div>
 <div id="container">
-<div id="stats">
-    <p>Liczba ofert: {{n_jobs}}</p>
-</div>
+    <div id="stats">
+        <span>Liczba ofert: {{n_jobs}}</span>
+        <span>Liczba oszustw: {{n_fake}}</span>
+    </div>
+    <div id="plots">
+        <div class="row">
+            <div class="column"><img src="{{priority_plot}}"></div>
+            <div class="column"><img src="{{fake_plot}}"></div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <p>Oszustwa</p>
+                {% if fake_wordcloud %}
+                <img src="{{fake_wordcloud}}">
+                {% else %}
+                <p>Brak danych</p>
+                {% endif %}
+            </div>
+            <div class="column">
+                <p>Prawdziwe oferty</p>
+                {% if true_wordcloud %}
+                <img src="{{true_wordcloud}}">
+                {% else %}
+                <p>Brak danych</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}

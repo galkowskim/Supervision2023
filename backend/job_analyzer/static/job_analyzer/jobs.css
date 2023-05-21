@@ -186,3 +186,20 @@ a{
 a:visited{
   color:rgb(2, 3, 129);
 }
+
+#navi {
+    width: auto;
+    position: fixed;
+    top: 2vh;
+    right: 5vh;
+}
+
+#navi a{
+    color: rgba(255, 105, 0, 1);
+    font-weight: bold;
+    font-size: 3vh;
+}
+
+#navi a:visited{
+  color: rgba(255, 105, 0, 1);
+}
