@@ -81,9 +81,8 @@ class Oglaszamy24Scraper(Scraper):
                 ' ')[2] + '-' + month_to_digit2[self.offer_posted.lower().split(' ')[1]] + '-' + self.offer_posted.split(' ')[0]
         except:
             pass
-        self.user_registration_date = fake.date_between(start_date='-6y', end_date=datetime.today())
-
-
+        self.user_registration_date = fake.date_between(
+            start_date='-6y', end_date=datetime.today())
 
     def get_df(n=10):
         urls = get_urls(n)
@@ -103,5 +102,6 @@ class Oglaszamy24Scraper(Scraper):
     def print_prop(self) -> str:
         print(f'tytul = {self.title}', end='\n\n')
         print(f'opis = {self.desc}', end='\n\n')
-        print(f'od kiedy uzytkownik = {self.user_registration_date}', end='\n\n')
+        print(
+            f'od kiedy uzytkownik = {self.user_registration_date}', end='\n\n')
         print(f'oferta od = {self.offer_posted}', end='\n\n')
