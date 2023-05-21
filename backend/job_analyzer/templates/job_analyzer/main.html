@@ -17,11 +17,11 @@
     <label for="priority_level">Filtruj po priorytecie:</label>
     <select id="priority_level" name="priority_level">
       <option value="">Wszystkie</option>
-      <option value="1">Bardzo niski</option>
-      <option value="2">Niski</option>
-      <option value="3">Średni</option>
-      <option value="4">Wysoki</option>
-      <option value="5">Bardzo wysoki</option>
+      <option value="Very Low">Bardzo niski</option>
+      <option value="Low">Niski</option>
+      <option value="Medium">Średni</option>
+      <option value="High">Wysoki</option>
+      <option value="Very High">Bardzo wysoki</option>
     </select>
     <br />
     <button type="submit">Zastosuj filtry</button>
@@ -81,6 +81,8 @@ $(document).ready(function() {
   $('.fake-status').click(function() {
     var jobId = $(this).data('job-id');
     var isFake = $(this).data('is-fake');
+    echo(jobId);
+    echo(isFake);
     var newFakeStatus = !isFake; // Toggle the fake status
 
     $.ajax({
@@ -94,7 +96,7 @@ $(document).ready(function() {
         // Update the UI with the new fake status
         if (newFakeStatus) {
           $(this).data('is-fake', True);
-          $(this).find('.fake-label').text('Fake');
+          $(this).find('.fake-label').tet('Fake');
         } else {
           $(this).data('is-fake', False);
           $(this).find('.fake-label').text('Real');
