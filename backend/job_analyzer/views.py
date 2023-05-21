@@ -14,7 +14,7 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.views import View
-from .utils import show_wordcloud
+from .utils import show_wordcloud, plot_priority, plot_fake
 
 
 class MainPageJobAdvertisementList(LoginRequiredMixin, ListView):
@@ -66,5 +66,35 @@ def details(request, pk):
 
 def dashboard(request):
     jobs = JobAdvertisement.objects.all()
-    context = {'n_jobs': len(jobs)}
+    fake = JobAdvertisement.objects.filter(is_fake=True)
+    true = JobAdvertisement.objects.filter(is_fake=False)
+
+    priority = [jobs.filter(priority_level=1).count(),
+                jobs.filter(priority_level=2).count(),
+                jobs.filter(priority_level=3).count(),
+                jobs.filter(priority_level=4).count(),
+                jobs.filter(priority_level=5).count()]
+
+    priority_plot = plot_priority(priority)
+
+    fake_plot = plot_fake([len(fake), len(true)])
+
+    fake_string = ''
+    for job in fake:
+        fake_string += getattr(job, 'content')
+
+    true_string = ''
+    for job in true:
+        true_string += getattr(job, 'content')
+
+    fake_wordcloud = show_wordcloud(fake_string, color='white')
+    true_wordcloud = show_wordcloud(true_string, color='white')
+
+    context = {'n_jobs': len(jobs),
+               'n_fake': len(fake),
+               'priority_plot': priority_plot,
+               'fake_plot': fake_plot,
+               'fake_wordcloud': fake_wordcloud,
+               'true_wordcloud': true_wordcloud}
+
     return render(request, 'job_analyzer/dashboard.html', context)
