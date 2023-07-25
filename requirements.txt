@@ -28,7 +28,7 @@ cycler==0.11.0
 cymem==2.0.7
 debugpy==1.6.7
 decorator==5.1.1
-Django==4.2.1
+Django==4.2.3
 django-compat==1.0.15
 django-crispy-forms==2.0
 djangorestframework==3.14.0
